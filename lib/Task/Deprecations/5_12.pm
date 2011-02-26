@@ -1,7 +1,9 @@
 use strict;
 use warnings;
 package Task::Deprecations::5_12;
-$Task::Deprecations::5_12::VERSION = '1.000';
+BEGIN {
+  $Task::Deprecations::5_12::VERSION = '1.001';
+}
 # ABSTRACT: libraries deprecated from the core in 5.12.0
 
 
@@ -16,7 +18,7 @@ Task::Deprecations::5_12 - libraries deprecated from the core in 5.12.0
 
 =head1 VERSION
 
-version 1.000
+version 1.001
 
 =head1 TASK CONTENTS
 
@@ -30,23 +32,23 @@ appear in future releases of perl 5.
 Installing this set of libraries (by installing Task::Deprecations::5_12 itself)
 will stop the "will be removed from the Perl core distribution" warnings.
 
-=head3 Class::ISA
+=head3 L<Class::ISA> 0.36
 
-=head3 Pod::Plainer
+=head3 L<Pod::Plainer> 1.03
 
-=head3 Shell
+=head3 L<Shell> 0.72
 
-=head3 Switch
+=head3 L<Switch> 2.16
 
-=head3 Perl4::CoreLibs
+=head3 L<Perl4::CoreLibs>
 
 =head1 AUTHOR
 
-  Ricardo Signes <rjbs@cpan.org>
+Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo Signes.
+This software is copyright (c) 2011 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

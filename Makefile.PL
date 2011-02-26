@@ -9,34 +9,44 @@ use ExtUtils::MakeMaker 6.31;
 
 
 my %WriteMakefileArgs = (
-                       'test' => {
-                                   'TESTS' => 't/*.t'
-                                 },
-                       'NAME' => 'Task::Deprecations::5_12',
-                       'DISTNAME' => 'Task-Deprecations-5_12',
-                       'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.31'
-                                               },
-                       'AUTHOR' => 'Ricardo Signes <rjbs@cpan.org>',
-                       'BUILD_REQUIRES' => {
-                                             'Test::More' => '0'
-                                           },
-                       'ABSTRACT' => 'libraries deprecated from the core in 5.12.0',
-                       'EXE_FILES' => [],
-                       'VERSION' => '1.000',
-                       'PREREQ_PM' => {
-                                        'Class::ISA' => '0',
-                                        'Pod::Plainer' => '0',
-                                        'Switch' => '0',
-                                        'Shell' => '0',
-                                        'Perl4::CoreLibs' => '0'
-                                      },
-                       'LICENSE' => 'perl'
-                     );
+  'ABSTRACT' => 'libraries deprecated from the core in 5.12.0',
+  'AUTHOR' => 'Ricardo Signes <rjbs@cpan.org>',
+  'BUILD_REQUIRES' => {
+    'Test::More' => '0.96'
+  },
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.31'
+  },
+  'DISTNAME' => 'Task-Deprecations-5_12',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'Task::Deprecations::5_12',
+  'PREREQ_PM' => {
+    'Class::ISA' => '0.36',
+    'Perl4::CoreLibs' => '0',
+    'Pod::Plainer' => '1.03',
+    'Shell' => '0.72',
+    'Switch' => '2.16'
+  },
+  'VERSION' => '1.001',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
+);
 
 
-delete $WriteMakefileArgs{BUILD_REQUIRES}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.56) };
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
